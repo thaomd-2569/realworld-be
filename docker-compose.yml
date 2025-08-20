@@ -1,0 +1,62 @@
+version: '3.9'
+
+services:
+  realworld_app:
+    build:
+      context: .
+      dockerfile: docker/nestjs/DockerFile
+    container_name: realworld_app
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-3000}:3000"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - realworld_db
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - nest_network
+
+  realworld_db:
+    image: postgres:15-alpine
+    container_name: realworld_db
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    expose:
+      - "5432"
+    ports:
+      - '5433:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - nest_network
+
+  adminer:
+    image: adminer:4-standalone
+    container_name: realworld_adminer
+    restart: unless-stopped
+    ports:
+      - "8089:8080"
+    depends_on:
+      - realworld_db
+    networks:
+      - nest_network
+    environment:
+      ADMINER_DEFAULT_SERVER: realworld_db
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  nest_network:
+    driver: bridge

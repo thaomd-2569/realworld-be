@@ -1,0 +1,19 @@
+FROM node:20.14.0
+
+# Tạo thư mục app
+WORKDIR /usr/src/app
+
+# Copy package.json + yarn.lock để cài deps trước
+COPY package.json yarn.lock ./
+
+# Cài deps (bao gồm devDependencies cho development)
+RUN yarn install
+
+# Copy toàn bộ source code (sẽ bị override bởi volume mount trong development)
+COPY . .
+
+# Expose port
+EXPOSE 3000
+
+# Command cho development với hot reload
+CMD ["yarn", "dev"]
