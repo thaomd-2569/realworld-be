@@ -10,6 +10,7 @@ import { DataSourceOptions } from 'typeorm';
 import { DataSource } from 'typeorm';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { ProfilesModule } from './modules/profiles/profiles.module';
 
 const configModule = ConfigModule.forRoot({
   isGlobal: true,
@@ -34,6 +35,7 @@ const dbModule = TypeOrmModule.forRootAsync({
     dbModule,
     UsersModule,
     AuthModule,
+    ProfilesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

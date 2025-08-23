@@ -16,6 +16,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
             database: this.configService.get<string>('DB_NAME'),
             entities: [__dirname + '/../**/*.entity{.ts,.js}'],
             synchronize: this.configService.get<string>('NODE_ENV') === 'development',
+            dropSchema: this.configService.get<string>('NODE_ENV') === 'development', // Drop và recreate schema
             logging: this.configService.get<string>('NODE_ENV') === 'development',
             autoLoadEntities: true,
         };

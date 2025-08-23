@@ -45,14 +45,12 @@ export class UsersController {
     return this.userConverter.toDto(user);
   }
 
-  // @Patch(':id')
-  // async update(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: UpdateUserDto): Promise<UserResponseDto> {
-  //   // const user = await this.usersService.update(id, updateUserDto);
-  //   // if (!user) {
-  //   //   throw new BadRequestException('User not found');
-  //   // }
-  //   // return this.userConverter.toDto(user);
-  // }
+  @Patch(':id')
+  async update(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: UpdateUserDto): Promise<{ status: string }> {
+    await this.usersService.update(id, updateUserDto);
+    return { status: 'success' };
+
+  }
 
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number): Promise<{ status: string }> {

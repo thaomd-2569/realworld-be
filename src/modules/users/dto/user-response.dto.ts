@@ -11,6 +11,12 @@ export class UserResponseDto {
     user_name: string;
 
     @Expose()
+    bio: string;
+
+    @Expose()
+    image: string;
+
+    @Expose()
     created_at: Date;
 
     @Expose()
