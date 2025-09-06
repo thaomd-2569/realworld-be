@@ -6,7 +6,6 @@ import { Repository } from 'typeorm';
 import { User } from 'src/entities';
 import * as bcrypt from 'bcrypt';
 
-
 @Injectable()
 export class UsersService {
   constructor(
@@ -25,7 +24,7 @@ export class UsersService {
     return await this.usersRepository.find();
   }
 
-  async findOne(id: number) : Promise<User | null>  {
+  async findOne(id: number): Promise<User | null> {
     return await this.usersRepository.findOne({ where: { id } });
   }
 
@@ -45,5 +44,11 @@ export class UsersService {
 
   async findByEmail(email: string): Promise<User | null> {
     return await this.usersRepository.findOne({ where: { email } });
+  }
+
+  async clearAll(): Promise<void> {
+    await this.usersRepository.query(
+      `TRUNCATE TABLE users RESTART IDENTITY CASCADE;`,
+    );
   }
 }

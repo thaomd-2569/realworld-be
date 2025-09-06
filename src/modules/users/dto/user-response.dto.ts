@@ -1,18 +1,18 @@
 import { Expose, Transform } from 'class-transformer';
 
 export class UserResponseDto {
-    @Expose()
-    id: number;
+  @Expose()
+  id: number;
 
-    @Expose()
-    email: string;
+  @Expose()
+  email: string;
 
-    @Expose()
-    user_name: string;
+  @Expose()
+  user_name: string;
 
-    @Expose()
-    created_at: Date;
+  @Expose()
+  created_at: Date;
 
-    @Expose()
-    updated_at: Date;
+  @Expose()
+  updated_at: Date;
 }

@@ -18,25 +18,25 @@ async function bootstrap() {
     .setTitle('My API')
     .setDescription('API description')
     .setVersion('1.0')
-    .addBearerAuth(
-      {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT', // optional, chỉ để mô tả
-        description: 'Enter JWT token',
-      },
-    )
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT', // optional, chỉ để mô tả
+      description: 'Enter JWT token',
+    })
     .build();
 
   const port = configService.get<string>('APP_PORT') ?? '3000';
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api-docs', app, document);
 
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true,
-    forbidNonWhitelisted: true,
-    transform: true,
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
 
   await app.listen(port);
 }

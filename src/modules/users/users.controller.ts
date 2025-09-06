@@ -1,4 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request, Req, BadRequestException, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Request,
+  Req,
+  BadRequestException,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -9,7 +22,10 @@ import { ApiHeader, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService, private readonly userConverter: UserConverter) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly userConverter: UserConverter,
+  ) {}
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto): Promise<UserResponseDto> {
@@ -23,7 +39,7 @@ export class UsersController {
     return this.userConverter.toDtoArray(users);
   }
 
-    @Get('me')
+  @Get('me')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Get user profile with enhanced error handling' })
@@ -37,7 +53,9 @@ export class UsersController {
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number): Promise<UserResponseDto> {
+  async findOne(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<UserResponseDto> {
     const user = await this.usersService.findOne(id);
     if (!user) {
       throw new BadRequestException('User not found');
@@ -55,7 +73,9 @@ export class UsersController {
   // }
 
   @Delete(':id')
-  async remove(@Param('id', ParseIntPipe) id: number): Promise<{ status: string }> {
+  async remove(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<{ status: string }> {
     await this.usersService.remove(id);
     return { status: 'success' };
   }

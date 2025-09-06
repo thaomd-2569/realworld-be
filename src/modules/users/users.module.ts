@@ -8,16 +8,9 @@ import { UserConverter } from 'src/converters/user-converter';
 import { JwtService } from '@nestjs/jwt';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([User]),
-  ],
+  imports: [TypeOrmModule.forFeature([User])],
   controllers: [UsersController],
-  providers: [
-    UsersService,
-    IsEmailUniqueConstraint,
-    UserConverter,
-    JwtService
-  ],
+  providers: [UsersService, IsEmailUniqueConstraint, UserConverter, JwtService],
   exports: [UsersService],
 })
 export class UsersModule {}
