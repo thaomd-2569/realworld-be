@@ -13,7 +13,9 @@ export class AuthController {
 
   @Post('verify-token')
   async verifyToken(@Body('token') token: string) {
-    return this.authService.verifyToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImVtYWlsIjoibWFpLmR1b25nLnRoYW9Ac3VuLWFzdGVyaXNrLmNvbSIsImlhdCI6MTc1NTYyMDQ1MSwiZXhwIjoxNzU2MjI1MjUxfQ.Y2mNOXLKNfa2N1EytO9Gufik1iQiSMy-f1voWJbGF5k');
+    return this.authService.verifyToken(
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImVtYWlsIjoibWFpLmR1b25nLnRoYW9Ac3VuLWFzdGVyaXNrLmNvbSIsImlhdCI6MTc1NTYyMDQ1MSwiZXhwIjoxNzU2MjI1MjUxfQ.Y2mNOXLKNfa2N1EytO9Gufik1iQiSMy-f1voWJbGF5k',
+    );
   }
 
   // @Get('me')

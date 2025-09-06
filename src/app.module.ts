@@ -10,10 +10,12 @@ import { DataSourceOptions } from 'typeorm';
 import { DataSource } from 'typeorm';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { SeedersModule } from './modules/seeders/seeders.module';
+import { CustomLogger } from './logs/custom.log';
 
 const configModule = ConfigModule.forRoot({
   isGlobal: true,
-  load: [ appConfig, databaseConfig ],
+  load: [appConfig, databaseConfig],
   envFilePath: ['.env'],
 });
 
@@ -24,17 +26,17 @@ const dbModule = TypeOrmModule.forRootAsync({
       throw new Error('Invalid options passed');
     }
 
-    return new DataSource(options).initialize();
+    const dataSource = new DataSource({
+      ...options,
+      logger: new CustomLogger(),
+    });
+
+    return dataSource.initialize();
   },
 });
 
 @Module({
-  imports: [
-    configModule,
-    dbModule,
-    UsersModule,
-    AuthModule,
-  ],
+  imports: [configModule, dbModule, UsersModule, AuthModule, SeedersModule],
   controllers: [AppController],
   providers: [AppService],
 })
