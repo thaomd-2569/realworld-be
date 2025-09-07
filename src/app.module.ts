@@ -11,7 +11,7 @@ import { DataSource } from 'typeorm';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { SeedersModule } from './modules/seeders/seeders.module';
-import { CustomLogger } from './logs/custom.log';
+import { CustomLogger } from './common/custom.logger';
 import { ProfilesModule } from './modules/profiles/profiles.module';
 
 const configModule = ConfigModule.forRoot({
