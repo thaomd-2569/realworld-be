@@ -63,14 +63,24 @@ export class UsersController {
     return this.userConverter.toDto(user);
   }
 
-  // @Patch(':id')
-  // async update(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: UpdateUserDto): Promise<UserResponseDto> {
-  //   // const user = await this.usersService.update(id, updateUserDto);
-  //   // if (!user) {
-  //   //   throw new BadRequestException('User not found');
-  //   // }
-  //   // return this.userConverter.toDto(user);
-  // }
+  @Patch(':id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: 'Update user' })
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateUserDto: UpdateUserDto,
+  ): Promise<{ status: string }> {
+    const user = await this.usersService.findOne(id);
+
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    await this.usersService.update(id, updateUserDto);
+
+    return { status: 'success' };
+  }
 
   @Delete(':id')
   async remove(

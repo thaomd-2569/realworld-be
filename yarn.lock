@@ -1369,6 +1369,11 @@
     "@types/node" "*"
     "@types/send" "*"
 
+"@types/slug@^5.0.9":
+  version "5.0.9"
+  resolved "https://registry.yarnpkg.com/@types/slug/-/slug-5.0.9.tgz#e5b213a9d7797d40d362ba85e2a7bbcd4df4ed40"
+  integrity sha512-6Yp8BSplP35Esa/wOG1wLNKiqXevpQTEF/RcL/NV6BBQaMmZh4YlDwCgrrFSoUE4xAGvnKd5c+lkQJmPrBAzfQ==
+
 "@types/stack-utils@^2.0.3":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-2.0.3.tgz#6209321eb2c1712a7e7466422b8cb1fc0d9dd5d8"
@@ -5008,6 +5013,11 @@ slash@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
   integrity sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==
+
+slug@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/slug/-/slug-6.1.0.tgz#a3523f49533ea4a6bee6fa684064f4a0f70a3861"
+  integrity sha512-x6vLHCMasg4DR2LPiyFGI0gJJhywY6DTiGhCrOMzb3SOk/0JVLIaL4UhyFSHu04SD3uAavrKY/K3zZ3i6iRcgA==
 
 source-map-support@0.5.13:
   version "0.5.13"

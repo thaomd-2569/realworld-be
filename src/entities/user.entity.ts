@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Profile } from './profile.entity';
 
 @Entity('users')
 export class User {
@@ -20,9 +22,21 @@ export class User {
   @Column({ unique: true })
   user_name: string;
 
+  @Column({ nullable: true })
+  slug: string;
+
+  @Column({ nullable: true })
+  bio: string;
+
+  @Column({ nullable: true })
+  image: string;
+
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
   @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updated_at: Date;
+
+  @OneToOne(() => Profile, (profile) => profile.user)
+  profile: Profile;
 }
