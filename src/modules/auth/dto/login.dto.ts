@@ -15,6 +15,6 @@ export class LoginDto {
   @IsNotEmpty()
   @IsString()
   @IsStrongPassword({}, { message: 'Password must be strong' })
-  @MaxLength(8, { message: 'Password must be at most 8 characters long' })
+  @MaxLength(15, { message: 'Password must be at most 15 characters long' })
   password: string;
 }

@@ -3,21 +3,35 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from 'src/entities';
+import { Profile, User } from 'src/entities';
 import * as bcrypt from 'bcrypt';
+import slug from 'slug';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
+    @InjectRepository(Profile)
+    private profileRepository: Repository<Profile>,
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const password = await bcrypt.hash(createUserDto.password, 10);
-    const user = this.usersRepository.create({ ...createUserDto, password });
+    return await this.usersRepository.manager.transaction(async (manager) => {
+      const password = await bcrypt.hash(createUserDto.password, 10);
+      const slugName = slug(createUserDto.user_name, { lower: true });
+      const user = manager.create(User, {
+        ...createUserDto,
+        password,
+        slug: slugName,
+      });
+      const savedUser = await manager.save(user);
 
-    return await this.usersRepository.save(user);
+      const profile = manager.create(Profile, { user: savedUser });
+      await manager.save(profile);
+
+      return savedUser;
+    });
   }
 
   async findAll() {
@@ -25,11 +39,14 @@ export class UsersService {
   }
 
   async findOne(id: number): Promise<User | null> {
-    return await this.usersRepository.findOne({ where: { id } });
+    return await this.usersRepository.findOne({
+      where: { id },
+      relations: ['profile'],
+    });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    return await this.usersRepository.save({ id, ...updateUserDto });
   }
 
   async remove(id: number) {

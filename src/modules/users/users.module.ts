@@ -6,9 +6,10 @@ import { User } from '../../entities/user.entity';
 import { IsEmailUniqueConstraint } from './validators/is-email-unique.validator';
 import { UserConverter } from 'src/converters/user-converter';
 import { JwtService } from '@nestjs/jwt';
+import { Profile } from 'src/entities';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User])],
+  imports: [TypeOrmModule.forFeature([User, Profile])],
   controllers: [UsersController],
   providers: [UsersService, IsEmailUniqueConstraint, UserConverter, JwtService],
   exports: [UsersService],
