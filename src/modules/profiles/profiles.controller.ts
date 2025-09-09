@@ -41,10 +41,7 @@ export class ProfilesController {
     @Param('slugName') slugName: string,
     @Request() req,
   ): Promise<{ status: string }> {
-    await this.profilesService.followProfile(
-      req.user.id,
-      slugName,
-    );
+    await this.profilesService.followProfile(req.user.id, slugName);
 
     return { status: 'success' };
   }
@@ -56,10 +53,7 @@ export class ProfilesController {
     @Param('slugName') slugName: string,
     @Request() req,
   ): Promise<{ status: string }> {
-    await this.profilesService.unfollowProfile(
-      req.user.id,
-      slugName,
-    );
+    await this.profilesService.unfollowProfile(req.user.id, slugName);
 
     return { status: 'success' };
   }

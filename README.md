@@ -25,10 +25,24 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Cp enviroment and start docker
+
+```bash
+$ cp .env.example .env
+$ sudo docker-compose up -d
+```
+
 ## Project setup
 
 ```bash
-$ yarn install
+$ sudo docker-compose exec realworld_app yarn install
+```
+
+## Migrate DB and run seeder
+
+```bash
+$ sudo docker-compose exec realworld_app yarn migration:run
+$ sudo docker-compose exec realworld_app yarn seeder:run
 ```
 
 ## Compile and run the project

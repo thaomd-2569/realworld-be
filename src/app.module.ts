@@ -13,6 +13,8 @@ import { AuthModule } from './modules/auth/auth.module';
 import { SeedersModule } from './modules/seeders/seeders.module';
 import { CustomLogger } from './common/custom.logger';
 import { ProfilesModule } from './modules/profiles/profiles.module';
+import { ArticlesModule } from './modules/articles/articles.module';
+import { TagsModule } from './modules/tags/tags.module';
 
 const configModule = ConfigModule.forRoot({
   isGlobal: true,
@@ -44,6 +46,8 @@ const dbModule = TypeOrmModule.forRootAsync({
     AuthModule,
     SeedersModule,
     ProfilesModule,
+    ArticlesModule,
+    TagsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

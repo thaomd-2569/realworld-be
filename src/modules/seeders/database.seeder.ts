@@ -1,10 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { UsersSeeder } from './user.seeder';
+import { TagsSeeder } from './tag.seeder';
 // Import other module seeders
 
 @Injectable()
 export class DatabaseSeeder {
-  constructor(private readonly userSeeder: UsersSeeder) {}
+  constructor(
+    private readonly userSeeder: UsersSeeder,
+    private readonly tagSeeder: TagsSeeder,
+  ) {}
 
   async seed(): Promise<void> {
     console.log('🌱 Starting database seeding...');
@@ -12,6 +16,7 @@ export class DatabaseSeeder {
     try {
       // Add other seeders here
       await this.userSeeder.seed();
+      await this.tagSeeder.seed();
 
       console.log('✅ Database seeding completed successfully!');
     } catch (error) {

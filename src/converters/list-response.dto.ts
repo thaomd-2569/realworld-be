@@ -8,7 +8,7 @@ export class ListResponseDto<T> {
   pagination?: {
     total: number;
     page: number;
-    limit: number;
+    perPage: number;
     totalPages: number;
   };
 
@@ -17,14 +17,14 @@ export class ListResponseDto<T> {
 
   constructor(
     data: T[],
-    pagination?: { total: number; page: number; limit: number },
+    pagination?: { total: number; page: number; perPage: number },
     filters?: Record<string, any>,
   ) {
     this.data = data;
     this.pagination = pagination
       ? {
           ...pagination,
-          totalPages: Math.ceil(pagination.total / pagination.limit),
+          totalPages: Math.ceil(pagination.total / pagination.perPage),
         }
       : undefined;
     this.filters = filters;
