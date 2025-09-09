@@ -1,7 +1,7 @@
 import { IsString, IsNotEmpty } from 'class-validator';
 
-export class FollowProfileDto {
-  @IsNotEmpty()
+export class AddCommentDto {
   @IsString()
-  slug_name: string;
+  @IsNotEmpty()
+  body: string;
 }

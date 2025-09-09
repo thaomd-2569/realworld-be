@@ -54,16 +54,16 @@ export class ProfileConverter
   /**
    * Convert array - Approach 4: Generic list response
    */
-  toGenericListResponse(profiles: Profile[]): ProfileResponseDto[] {
-    return this.toDtoArray(profiles);
-  }
+  // toGenericListResponse(profiles: Profile[]): ProfileResponseDto[] {
+  //   return this.toDtoArray(profiles);
+  // }
 
   /**
    * Convert array to wrapper with metadata
    */
-  toListWrapper(
+  toGenericListResponse(
     profiles: Profile[],
-    pagination?: { total: number; page: number; limit: number },
+    pagination?: { total: number; page: number; perPage: number },
     filters?: Record<string, any>,
   ): ListResponseDto<ProfileResponseDto> {
     const dtoArray = this.toDtoArray(profiles);

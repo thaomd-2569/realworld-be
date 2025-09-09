@@ -4,14 +4,19 @@ import { plainToInstance } from 'class-transformer';
 import { User } from '../entities/user.entity';
 import { UserResponseDto } from 'src/modules/users/dto/user-response.dto';
 import { ListResponseDto } from './list-response.dto';
+import { Article } from 'src/entities/article.entity';
+import { ArticleResponseDto } from 'src/modules/articles/dto/article-response.dto';
+import { Converter } from './converter';
 
 @Injectable()
-export class UserConverter {
+export class ArticleConverter
+  implements Converter<Article, ArticleResponseDto>
+{
   /**
-   * Convert single User entity to UserResponseDto
+   * Convert single Article entity to ArticleResponseDto
    */
-  toDto(user: User | null | undefined): UserResponseDto {
-    return plainToInstance(UserResponseDto, user, {
+  toDto(article: Article | null | undefined): ArticleResponseDto {
+    return plainToInstance(ArticleResponseDto, article, {
       excludeExtraneousValues: true,
       enableImplicitConversion: true,
     });
@@ -20,8 +25,8 @@ export class UserConverter {
   /**
    * Convert array - Approach 1: Simple array
    */
-  toDtoArray(users: User[]): UserResponseDto[] {
-    return users.map((user) => this.toDto(user));
+  toDtoArray(articles: Article[]): ArticleResponseDto[] {
+    return articles.map((article) => this.toDto(article));
   }
 
   // /**
@@ -53,11 +58,11 @@ export class UserConverter {
    * Convert array - Approach 4: Generic list response
    */
   toGenericListResponse(
-    users: User[],
+    articles: Article[],
     pagination?: { total: number; page: number; perPage: number },
     filters?: Record<string, any>,
-  ): ListResponseDto<UserResponseDto> {
-    const dtoArray = this.toDtoArray(users);
+  ): ListResponseDto<ArticleResponseDto> {
+    const dtoArray = this.toDtoArray(articles);
     return new ListResponseDto(dtoArray, pagination, filters);
   }
 }

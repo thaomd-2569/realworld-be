@@ -6,6 +6,8 @@ import { ValidationPipe } from '@nestjs/common';
 import { useContainer } from 'class-validator';
 
 import 'reflect-metadata';
+import { HandleExceptionFilter } from './exceptions/handle.exception';
+import { ResponseInterceptor } from './interceptors/response.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -37,6 +39,10 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  app.useGlobalFilters(new HandleExceptionFilter());
+
+  app.useGlobalInterceptors(new ResponseInterceptor());
 
   await app.listen(port);
 }

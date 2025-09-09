@@ -1,7 +1,5 @@
 // src/modules/users/seeders/users.seeder.ts
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/entities';
-import { Repository } from 'typeorm';
 import { UsersService } from '../users/users.service';
 
 @Injectable()
